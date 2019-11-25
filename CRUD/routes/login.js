@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const DbManager = require("../model/dbManager");
 
 const router = express.Router();
 
