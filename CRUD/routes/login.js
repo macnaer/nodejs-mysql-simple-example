@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const { SignIn } = require("../model/dbManager");
 
 const router = express.Router();
 
@@ -12,15 +13,8 @@ router.post("/login", (req,res) => {
         login: req.body.login,
         password: req.body.password
     }
-    let sql = "SELECT login FROM users WHERE login LIKE \'" + formData.login + "\'";
-    db.query(sql, (err, result) => {
-        if (err){
-            console.log(err);
-        }
-        else{
-            console.log(result);
-            res.send(`<h2>Welcome, ${formData.login}</h2>`);
-        }
+    SignIn(formData, function(result){
+        res.send(result);
     })
 })
 

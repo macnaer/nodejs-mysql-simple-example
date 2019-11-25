@@ -24,7 +24,6 @@ router.post("/register", (req, res) => {
     CheckUser(formData.username, function(result) {
       if (result == "false"){
         CreateUser(formData, function(createResult){
-          console.log("Outside", createResult);
           res.send(`<h1>${createResult}</h1>`);
         })
       }

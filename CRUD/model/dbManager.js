@@ -46,7 +46,27 @@ CreateUser = (formData, callback) => {
   })
 }
 
+SignIn = (formData, callback) =>{
+  // let sql = "SELECT login FROM users WHERE login LIKE \'" + formData.login + "\'";
+  let sql = "SELECT `login`, `password` FROM `users` WHERE login=\'" + formData.login + "\'" + "and  password=\'" + formData.password + "\'";
+    db.query(sql, (err, result) => {
+        if (err){
+            throw err;
+        }
+        else if (result.length != 0){
+            console.log(result);
+            let res = `<h2>Welcome, ${formData.login}</h2>`;
+            return callback(res);
+        }
+        else{
+          let res = `<h2>Login or password incorrect.</h2>`;
+          return callback(res);
+        }
+    })
+} 
+
 module.exports = {
   CheckUser,
-  CreateUser
+  CreateUser,
+  SignIn
 };
